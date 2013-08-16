@@ -27,8 +27,8 @@ module Clearance
     end
 
     def sign_in(user)
-      cookies[REMEMBER_TOKEN_COOKIE] = user && user.remember_token
       @current_user = user
+      cookies[REMEMBER_TOKEN_COOKIE] = remember_token_for_user(user)
     end
 
     def sign_out
@@ -49,6 +49,16 @@ module Clearance
     end
 
     private
+
+    def remember_token_for_user(user)
+      if user
+        if user.remember_token.blank?
+          user.reset_remember_token!
+        end
+
+        user.remember_token
+      end
+    end
 
     def cookies
       @cookies ||= @env['action_dispatch.cookies'] || Rack::Request.new(@env).cookies

@@ -37,11 +37,14 @@ describe Clearance::Session do
       expect(session.current_user).to eq user
     end
 
-    context 'with nil argument' do
+    context 'when user has no remember_token' do
       it 'assigns current_user' do
-        session.sign_in nil
+        user = create(:user, remember_token: nil)
 
-        expect(session.current_user).to be_nil
+        session.sign_in user
+
+        expect(session.current_user).to eq user
+        expect(user.reload.remember_token).not_to be_blank
       end
     end
   end
