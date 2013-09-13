@@ -113,15 +113,15 @@ Or, you can authorize users in `config/routes.rb`:
 ```ruby
 Blog::Application.routes.draw do
   constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
-    root to: 'admin'
+    get '/' => 'admin/dashboards#show'
   end
 
   constraints Clearance::Constraints::SignedIn.new do
-    root to: 'dashboard'
+    get '/' => 'dashboards#show'
   end
 
   constraints Clearance::Constraints::SignedOut.new do
-    root to: 'marketing'
+    get '/' => 'marketing#index'
   end
 end
 ```
