@@ -10,7 +10,7 @@ class ClearanceMailer < ActionMailer::Base
   def confirmation(user)
   	@user = user
   	mail :from => Clearance.configuration.mailer_sender, :to => @user.email,
-  		:subject    I18n.t(:confirmation,
+  		:subject => I18n.t(:confirmation,
           :scope   => [:clearance, :models, :clearance_mailer],
           :default => "Account confirmation")
 	end
