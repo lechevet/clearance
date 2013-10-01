@@ -12,6 +12,6 @@ class ClearanceMailer < ActionMailer::Base
   	mail :from => Clearance.configuration.mailer_sender, :to => @user.email,
   		:subject => I18n.t(:confirmation,
           :scope   => [:clearance, :models, :clearance_mailer],
-          :default => "Account confirmation")
+          :default => 'Invitation')
 	end
 end
